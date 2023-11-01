@@ -2,12 +2,21 @@
 @startuml
 
 start
-    :Go to home position;
-    :Check parts row 1;
-if (part detected?) then (yes)
-    :Check parts row 2;
-else (no)
-    :Go to home position;
+
+repeat
+:Check row for parts;
+    if (Parts detected?) then (no)
+      #red:Error missing part;
+      kill
+    endif
+    ->yes;
+    :All parts availible;
+repeat while (row 5 checked?) is (no) not (yes)
+:Move to next row;
+-> yes
+:Proceed;
+
+stop
 
 
 @enduml
